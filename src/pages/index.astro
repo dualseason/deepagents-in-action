@@ -85,9 +85,14 @@ try {
             class="inline-flex items-center gap-2 px-7 py-3 border border-gold/40 text-ink-muted text-sm font-medium rounded-lg hover:border-gold hover:text-gold transition-colors group">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
             GitHub Star
-            {stars !== null && (
-              <span class="ml-1 px-1.5 py-0.5 rounded text-xs font-mono bg-gold-pale/60 text-gold border border-gold/20">{stars}</span>
-            )}
+            <span
+              id="gh-star-count"
+              data-fallback={stars ?? ''}
+              class:list={[
+                'ml-1 px-1.5 py-0.5 rounded text-xs font-mono bg-gold-pale/60 text-gold border border-gold/20',
+                stars === null && 'hidden',
+              ]}
+            >{stars ?? ''}</span>
           </a>
         </div>
 
@@ -136,3 +141,48 @@ try {
   </main>
   <Footer />
 </BaseLayout>
+
+<script>
+  // Fetch the latest star count on page load so the badge reflects the live
+  // value, not the SSG-baked snapshot. Cached via sessionStorage to avoid
+  // hammering GitHub on every internal navigation.
+  (async () => {
+    const el = document.getElementById('gh-star-count');
+    if (!el) return;
+
+    const CACHE_KEY = 'gh-star-count:webup/deepagents-course';
+    const TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+    const apply = (n: number) => {
+      el.textContent = String(n);
+      el.classList.remove('hidden');
+    };
+
+    try {
+      const cached = sessionStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const { n, t } = JSON.parse(cached);
+        if (Date.now() - t < TTL_MS && typeof n === 'number') {
+          apply(n);
+          return;
+        }
+      }
+    } catch {}
+
+    try {
+      const res = await fetch('https://api.github.com/repos/webup/deepagents-course', {
+        headers: { Accept: 'application/vnd.github+json' },
+      });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (typeof data.stargazers_count === 'number') {
+        apply(data.stargazers_count);
+        try {
+          sessionStorage.setItem(CACHE_KEY, JSON.stringify({ n: data.stargazers_count, t: Date.now() }));
+        } catch {}
+      }
+    } catch {
+      // Network failed — leave the SSG fallback as-is.
+    }
+  })();
+</script>
