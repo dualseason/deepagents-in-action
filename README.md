@@ -26,18 +26,30 @@
 
 ## 课程大纲
 
-已发布章节：
+### 准备篇 — 动手实操前的环境搭建与工具安装
+
+基于 [AgentSeek](https://github.com/ob-labs/agentseek) 工程化套件，帮助学员快速搭建开发环境：
+
+- [AgentSeek CLI（上）— 用 create 命令快速搭建模板应用](content/ch07-agentseek-create.md)：安装 CLI，拉取预制模板，配置环境变量，前后端联调运行。
+- [AgentSeek CLI（下）— 用 skills 命令安装开发辅助技能](content/ch08-agentseek-skills.md)：安装 langchain-dev-guide 和 langsmith-trace 技能，让 AI 编码助手提供框架级指导。
+
+### 认知篇
 
 | 章节 | 标题 |
 |------|------|
 | 第 1 章 | 从 Agent Framework 到 Agent Harness — Deep Agents 的诞生逻辑 |
 | 第 2 章 | 快速上手 — 5 分钟构建你的第一个 Deep Agent |
+
+### 核心篇
+
+| 章节 | 标题 |
+|------|------|
 | 第 3 章 | 虚拟文件系统 — Deep Agents 的 Context Engineering 核心 |
 | 第 4 章 | 任务规划与分解 — 让 Agent 学会拆解复杂任务 |
 | 第 5 章 | 子 Agent 与上下文隔离 — 让 Agent 学会委派 |
 | 第 6 章 | 异步子 Agent — 让主 Agent 同时驱动多个子任务 |
 
-后续还有更多主题正在规划中，涵盖长期记忆、Human-in-the-Loop、Skills、沙箱执行、流式前端、实战项目与生产部署，持续更新中。
+后续还有进阶篇（长期记忆、Human-in-the-Loop、Skills、沙箱执行）和实战篇（流式前端、数据分析 Agent、生产部署）正在规划中，持续更新。
 
 ---
 

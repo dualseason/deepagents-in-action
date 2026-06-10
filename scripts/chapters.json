@@ -82,7 +82,7 @@
     "chapter": 0,
     "section": "准备篇",
     "order": 7,
-    "description": "安装 AgentSeek CLI，使用 agentseek create 一条命令拉取并运行预制的 Agent 应用模板，配置环境变量与 LangSmith Tracing，前后端联调验证。",
+    "description": "安装 AgentSeek CLI，一条命令拉取预制模板到本地，配置模型与 LangSmith 环境变量，前后端联调运行。",
     "slides": [
       { "id": "ch07", "title": "AgentSeek CLI — create 模板应用", "bilibili": "https://www.bilibili.com/video/BV1cYEt6FEAq/" }
     ],
@@ -96,9 +96,10 @@
     "order": 8,
     "description": "通过 agentseek skills 安装 LangChain 开发指南和 LangSmith Trace 技能，让 AI 编码助手在开发过程中提供框架级的专业指导。",
     "slides": [
-      { "id": "ch08", "title": "AgentSeek CLI — skills 开发技能" }
+      { "id": "ch08", "title": "AgentSeek CLI — skills 开发技能", "bilibili": "https://www.bilibili.com/video/BV16DEm6EEjN/" }
     ],
-    "published": false
+    "published": true,
+    "pubDate": "2026-06-10"
   },
   "ch09-long-term-memory": {
     "title": "长期记忆 — 让 Agent 拥有跨对话的记忆",

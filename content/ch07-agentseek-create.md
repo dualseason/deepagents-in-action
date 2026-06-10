@@ -117,7 +117,7 @@ agentseek create --list-templates
     agentseek create                  interactive selection
 ```
 
-> 所有模板源码托管在 AgentSeek 主仓库的 `templates/` 目录下，欢迎提 Issue 或 PR 贡献新模板。
+> 所有模板源码托管在 [AgentSeek 主仓库](https://github.com/ob-labs/agentseek) 的 `templates/` 目录下，欢迎提 [Issue](https://github.com/ob-labs/agentseek/issues) 或 PR 贡献新模板。
 
 ### 第二步：创建模板应用
 
@@ -322,4 +322,6 @@ npm run --prefix frontend dev
 5. 前后端联调运行
 6. 在 LangSmith 中查看完整的 Agent 执行链路
 
-下一章我们将学习 AgentSeek CLI 的另一个核心功能——**`agentseek skills`**：当你基于模板开始定制开发时，面对 LangChain 和 LangSmith 的各种技巧，如何通过安装开发技能（Skills）来获得 AI 编码助手的专业指导。
+如果在使用过程中遇到问题，欢迎到 [GitHub Issues](https://github.com/ob-labs/agentseek/issues) 提交反馈。
+
+下一章我们将学习 AgentSeek CLI 的另一个核心功能——**`agentseek skills`**：当你基于模板开始定制开发时，如何通过安装开发技能来获得 AI 编码助手的专业指导。
