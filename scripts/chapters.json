@@ -109,7 +109,7 @@
     "description": "Skills 机制：Agent Skills 规范、SKILL.md 结构、Progressive Disclosure 按需加载、多源优先级、子 Agent 继承规则、Skills vs Memory 对比与实战。",
     "slides": [
       { "id": "ch07-1", "title": "Lec 09: Skills（上）— 从概念到上手", "bilibili": "https://www.bilibili.com/video/BV1XsEi6qEA6/", "xhs": "http://xhslink.com/o/9kCnyTUYTr4" },
-      { "id": "ch07-2", "title": "Lec 10: Skills（下）— 高级用法" }
+      { "id": "ch07-2", "title": "Lec 10: Skills（下）— 高级用法", "bilibili": "https://www.bilibili.com/video/BV1gDjV6eEXA/", "xhs": "http://xhslink.com/o/4rUB8JZwK2i" }
     ],
     "published": true,
     "pubDate": "2026-06-11"
