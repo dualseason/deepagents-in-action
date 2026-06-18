@@ -96,7 +96,7 @@
     "order": 8,
     "description": "通过 agentseek skills 安装 LangChain 开发指南和 LangSmith Trace 技能，让 AI 编码助手在开发过程中提供框架级的专业指导。",
     "slides": [
-      { "id": "pre02", "title": "AgentSeek CLI — skills 开发技能", "bilibili": "https://www.bilibili.com/video/BV16DEm6EEjN/" }
+      { "id": "pre02", "title": "AgentSeek CLI — skills 开发技能", "bilibili": "https://www.bilibili.com/video/BV16DEm6EEjN/", "xhs": "http://xhslink.com/o/8b9xPADEwDL" }
     ],
     "published": true,
     "pubDate": "2026-06-10"
