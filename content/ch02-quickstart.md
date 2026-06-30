@@ -137,9 +137,60 @@ def internet_search(
 | **Docstring** | 告诉 Agent 这个工具的用途 | 没有 docstring，Agent 不知道何时该使用这个工具 |
 | **默认值** | 标记哪些参数是可选的 | Agent 只需要填必需参数，减少出错概率 |
 
-> 你可以把 docstring 想象成给 Agent 看的"使用说明书"——写得越清晰，Agent 用得越准确。
+> 你可以把 docstring 想象成给 Agent 看的“使用说明书”——写得越清晰，Agent 用得越准确。
+
+## 小试牛刀：写一个计算器 Agent
+
+在看真实的搜索工具之前，先用刚学的“三要素”自己写 1–2 个工具，加深理解。这个例子不引入任何外部 API 依赖，纯本地逻辑就能跑通——让你把注意力放在“如何设计工具”而不是“如何配置外部服务”上。
+
+复用前面的 `model`，我们定义两个小工具：一个做四则运算，一个换算单位。注意看每个工具是如何落实三要素的——**参数类型标注 + docstring + 默认值**：
+
+```python
+def calculate(expression: str) -> float:
+    """Evaluate a math expression and return the result.
+
+    Args:
+        expression: A math expression, e.g. "1 + 2 * 3".
+    """
+    # 仅做演示，实际项目应使用安全的解析库而非 eval
+    return eval(expression)
+
+def convert_currency(amount: float, from_currency: str, to_currency: str = "CNY") -> dict:
+    """Convert an amount from one currency to another.
+
+    Args:
+        amount: The amount to convert.
+        from_currency: The source currency code, e.g. "USD".
+        to_currency: The target currency code, defaults to "CNY".
+    """
+    # 这里用固定汇率做演示；真实场景可接入汇率 API
+    rates = {"USD": 7.2, "CNY": 1.0, "EUR": 7.8}
+    cny = amount * rates[from_currency]
+    return {"amount": round(cny / rates[to_currency], 2), "currency": to_currency}
+```
+
+把它们交给 Agent，并给它一个明确的人设：
+
+```python
+agent = create_deep_agent(
+    model=model,
+    tools=[calculate, convert_currency],
+    system_prompt="你是一个计算助手，能帮用户做数学运算和货币换算。",
+)
+
+result = agent.invoke(
+    {"messages": [{"role": "user", "content": "帮我把 100 美元换算成人民币，再用它乘以 1.08 的通胀系数。"}]}
+)
+print(result["messages"][-1].content)
+```
+
+短短一段代码，你已经独立完成了两个工具的设计。留意几个关键点：`calculate` 的参数用字符串承接整个表达式（类型标注告诉 Agent 该传文本而非数字）；`convert_currency` 的 `to_currency` 设了默认值，Agent 在只关心换算成人民币时只需填前两个参数。这正是“三要素”在实际设计中的体现——**类型标注决定输入形态，docstring 决定调用时机，默认值减少必填项**。
+
+掌握了这套设计方法，下一节我们再引入真实的外部 API 就不会觉得突兀了。
 
 ## 实战：构建一个研究助手
+
+> 初次阅读可先跳过本节，后续章节会逐步展开外部工具与多步骤编排。如果你已经熟悉 LangChain 生态，可以直接跟进；否则建议先反复练习前面的简单工具，等跑顺了再回来。
 
 现在我们来构建一个真实可用的 Agent——一个能搜索互联网并撰写研究报告的助手。
 
@@ -191,7 +242,7 @@ def internet_search(
 
 ### Step 3：创建 Agent 并配置系统提示词
 
-系统提示词（System Prompt）是 Agent 的"人设"——它定义了 Agent 的角色、能力和工作方式：
+系统提示词（System Prompt）是 Agent 的“人设”——它定义了 Agent 的角色、能力和工作方式：
 
 ```python
 from langchain_openai import ChatOpenAI
@@ -233,7 +284,7 @@ print(result["messages"][-1].content)
 
 当你调用 `agent.invoke()` 时，Deep Agent 会自动执行一系列操作。这正是它作为 Harness 的价值所在——你只写了几行代码，但 Agent 背后的工作流程远比你看到的复杂：
 
-1. **规划任务** — 调用内置的 `write_todos` 工具，把"研究 LangGraph"拆解为多个子步骤
+1. **规划任务** — 调用内置的 `write_todos` 工具，把“研究 LangGraph”拆解为多个子步骤
 2. **搜索信息** — 调用你提供的 `internet_search` 工具，执行多次网络搜索
 3. **管理上下文** — 调用内置的 `write_file` 将大量搜索结果写入虚拟文件系统，避免上下文溢出
 4. **委派子任务**（如需要）— 调用内置的 `task` 工具，将复杂子任务委派给专门的子 Agent
@@ -338,7 +389,7 @@ agent = create_deep_agent(model="openai:gpt-4.1")
 
 ## 调试与追踪：LangSmith
 
-当 Agent 的行为不符合预期时，你需要看到它"内部在想什么"。LangSmith 是 LangChain 的可观测性平台，可以记录 Agent 的每一次模型调用、工具调用和状态变化。
+当 Agent 的行为不符合预期时，你需要看到它“内部在想什么”。LangSmith 是 LangChain 的可观测性平台，可以记录 Agent 的每一次模型调用、工具调用和状态变化。
 
 ### 快速配置
 
@@ -359,7 +410,7 @@ export LANGSMITH_API_KEY="your-langsmith-key"
 - 每一步的 token 消耗和耗时
 - 虚拟文件系统中文件的变化
 
-这对于理解"Agent 为什么做了这个决定"至关重要，尤其是在调试复杂的多步骤任务时。
+这对于理解“Agent 为什么做了这个决定”至关重要，尤其是在调试复杂的多步骤任务时。
 
 ## 完整代码
 
