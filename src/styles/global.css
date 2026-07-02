@@ -44,6 +44,43 @@ body {
   background-size: 24px 24px;
 }
 
+.hero-ctas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.hero-cta {
+  flex: 0 0 auto;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 639px) {
+  .hero-cta {
+    width: min(100%, 18rem);
+  }
+}
+
+@media (min-width: 640px) {
+  .hero-ctas {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: min(calc(100vw - 3rem), 60rem);
+    max-width: none;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-ctas {
+    flex-wrap: nowrap;
+  }
+}
+
 /* Chapter number decoration */
 .chapter-num {
   font-size: 8rem;
