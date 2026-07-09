@@ -144,9 +144,9 @@ npx skills add ob-labs/agentseek --skill langsmith-trace
 
 <a href="https://www.star-history.com/?repos=datawhalechina%2Fdeepagents-in-action&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=datawhalechina/deepagents-in-action&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=datawhalechina/deepagents-in-action&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=datawhalechina/deepagents-in-action&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=datawhalechina/deepagents-in-action&type=date&theme=dark&legend=top-left&sealed_token=mtwEZqXnyl4dS7dntbunJS6paWzuY4nYHRakXExwwhUfgmgAhGfSne4zD1pbE3xskKASHP6zESCxqlrl9SkOYnwu5XnyLmszazov5JUJYDSUMQqJmnZYBw" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=datawhalechina/deepagents-in-action&type=date&legend=top-left&sealed_token=mtwEZqXnyl4dS7dntbunJS6paWzuY4nYHRakXExwwhUfgmgAhGfSne4zD1pbE3xskKASHP6zESCxqlrl9SkOYnwu5XnyLmszazov5JUJYDSUMQqJmnZYBw" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=datawhalechina/deepagents-in-action&type=date&legend=top-left&sealed_token=mtwEZqXnyl4dS7dntbunJS6paWzuY4nYHRakXExwwhUfgmgAhGfSne4zD1pbE3xskKASHP6zESCxqlrl9SkOYnwu5XnyLmszazov5JUJYDSUMQqJmnZYBw" />
  </picture>
 </a>
 
