@@ -319,9 +319,9 @@ print(result["messages"][-1].content)
 
 | 参数 | 中间件 | 用途 |
 |---|---|---|
-| `subagents=` 或自动 | SubAgentMiddleware | `task` 工具 + 子 Agent 委派 |
+| `subagents=` （默认自动包含） | SubAgentMiddleware | `task` 工具 + 子 Agent 委派 |
 | `skills=` | SkillsMiddleware | 技能包注入 |
-| 异步子 Agent | AsyncSubAgentMiddleware | 异步子 Agent 任务管理 |
+| `subagents=` | AsyncSubAgentMiddleware | 异步子 Agent 任务管理 |
 | `memory=` | MemoryMiddleware | AGENTS.md 记忆注入 |
 | `interrupt_on=` | HumanInTheLoopMiddleware | 人工审批拦截 |
 
