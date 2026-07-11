@@ -7,13 +7,10 @@ on:
       - "public/**/*.jpg"
       - "public/**/*.jpeg"
       - "public/**/*.pdf"
-      - "content/**"
-      - "src/**"
-      - "README.md"
-      - "CONTRIBUTING.md"
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
 
 jobs:
@@ -40,13 +37,53 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
-      - name: Optimize assets
-        run: bash scripts/optimize-assets.sh
+      - name: Identify changed assets
+        id: changed-assets
+        env:
+          BEFORE: ${{ github.event.before }}
+          SHA: ${{ github.sha }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+
+          if [[ -n "${BEFORE:-}" ]] \
+            && [[ "$BEFORE" != "0000000000000000000000000000000000000000" ]] \
+            && git cat-file -e "$BEFORE^{commit}" 2>/dev/null \
+            && git merge-base --is-ancestor "$BEFORE" "$SHA"; then
+            base="$BEFORE"
+          else
+            base="$(git merge-base "origin/$DEFAULT_BRANCH" "$SHA")"
+          fi
+
+          changed=()
+          while IFS= read -r file; do
+            case "$file" in
+              public/*.png|public/*.jpg|public/*.jpeg|public/*.pdf)
+                changed+=("$file")
+                ;;
+            esac
+          done < <(git diff --name-only --diff-filter=AMR "$base" "$SHA" -- public)
+
+          if (( ${#changed[@]} == 0 )); then
+            echo "has_assets=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          printf '%s\n' "${changed[@]}" > "$RUNNER_TEMP/changed-assets.txt"
+          echo "has_assets=true" >> "$GITHUB_OUTPUT"
+
+      - name: Optimize changed assets
+        if: steps.changed-assets.outputs.has_assets == 'true'
+        run: |
+          mapfile -t changed < "$RUNNER_TEMP/changed-assets.txt"
+          bash scripts/optimize-assets.sh "${changed[@]}"
 
       - name: Commit optimized assets
+        id: commit-assets
         run: |
           if git diff --quiet; then
             echo "No asset updates were needed."
+            echo "committed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -55,3 +92,10 @@ jobs:
           git add public content src README.md CONTRIBUTING.md scripts package.json .github/workflows
           git commit -m "chore: optimize assets"
           git push
+          echo "committed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Run asset check for optimized commit
+        if: steps.commit-assets.outputs.committed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run assets-check.yml --ref "$GITHUB_REF_NAME"
