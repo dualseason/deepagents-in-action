@@ -24,7 +24,7 @@ const chapterLabel = isExtra ? (preMatch ? preMatch[1] : 'EX') : String(chapter)
 ---
 
 {published ? (
-  <div class="relative p-6 rounded-lg border border-gold-pale/80 bg-white hover:border-gold-light hover:shadow-md transition-all group overflow-hidden">
+  <div class="relative p-6 rounded-lg border border-gold-pale/80 bg-paper-warm hover:border-gold-light hover:shadow-md transition-all group overflow-hidden">
     <div class={`chapter-num ${isExtra ? 'chapter-num--extra' : ''}`}>{chapterLabel}</div>
     <a href={`${base}/chapters/${id}/`} class="relative block">
       <h3 class="text-lg font-bold font-sans leading-snug mb-2 group-hover:text-gold transition-colors">
@@ -79,3 +79,32 @@ const chapterLabel = isExtra ? (preMatch ? preMatch[1] : 'EX') : String(chapter)
     <p class="text-sm text-ink-muted/30">即将发布</p>
   </div>
 )}
+
+<style>
+  /* 暗色模式：B站按钮 */
+  :global([data-theme="dark"]) a[href*="bilibili"]:not([href*="xhs"]) {
+    background: rgba(56, 189, 248, 0.15);
+    color: #5ba3e8;
+  }
+
+  :global([data-theme="dark"]) a[href*="bilibili"]:not([href*="xhs"]):hover {
+    background: rgba(56, 189, 248, 0.25);
+  }
+
+  /* 暗色模式：小红书按钮 */
+  :global([data-theme="dark"]) a[href*="xiaohongshu"],
+  :global([data-theme="dark"]) a[href*="xhs"] {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+  }
+
+  :global([data-theme="dark"]) a[href*="xiaohongshu"]:hover,
+  :global([data-theme="dark"]) a[href*="xhs"]:hover {
+    background: rgba(239, 68, 68, 0.25);
+  }
+
+  /* 暗色模式：卡片hover阴影 */
+  :global([data-theme="dark"]) .group:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+</style>

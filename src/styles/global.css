@@ -6,6 +6,7 @@
   --font-serif: "LXGW WenKai", "Noto Serif SC", "Source Han Serif SC", "Songti SC", Georgia, serif;
   --font-mono: "JetBrains Mono", "Fira Code", "Menlo", "Consolas", monospace;
 
+  /* 浅色模式（默认） */
   --color-ink: #1a1a2e;
   --color-ink-light: #2d2d44;
   --color-ink-muted: #4a4a5a;
@@ -22,6 +23,58 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ========== 暗色模式 CSS 变量覆盖 ========== */
+[data-theme="dark"] {
+  --color-ink: #c9c5bf;
+  --color-ink-light: #b8b4a8;
+  --color-ink-muted: #8a8678;
+  --color-paper: #0f0f1a;
+  --color-paper-warm: #16162a;
+  --color-gold: #c9a227;
+  --color-gold-light: #daa520;
+  --color-gold-pale: #2a2518;
+  --color-accent: #5ba3e8;
+}
+
+/* 暗色模式：Tailwind 文字类强制覆盖 */
+[data-theme="dark"] .text-ink,
+[data-theme="dark"] [class*="text-ink"] {
+  color: var(--color-ink) !important;
+}
+
+[data-theme="dark"] .text-ink-light {
+  color: var(--color-ink-light) !important;
+}
+
+[data-theme="dark"] .text-ink-muted {
+  color: var(--color-ink-muted) !important;
+}
+
+[data-theme="dark"] .text-gold {
+  color: var(--color-gold) !important;
+}
+
+[data-theme="dark"] .text-accent {
+  color: var(--color-accent) !important;
+}
+
+/* 暗色模式：无 Tailwind 文字类的纯元素降级 */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] p,
+[data-theme="dark"] li,
+[data-theme="dark"] td,
+[data-theme="dark"] th,
+[data-theme="dark"] label,
+[data-theme="dark"] strong,
+[data-theme="dark"] em {
+  color: var(--color-ink);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -36,6 +89,19 @@ body {
 ::selection {
   background-color: var(--color-gold-pale);
   color: var(--color-ink);
+}
+
+/* 暗色模式：prose 引用块 */
+[data-theme="dark"] .prose blockquote {
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: var(--color-ink-muted) !important;
+  border-left-color: var(--color-gold) !important;
+}
+
+/* 暗色模式：行内代码 */
+[data-theme="dark"] .prose code:not(pre code) {
+  background: rgba(255, 255, 255, 0.07) !important;
+  color: var(--color-ink) !important;
 }
 
 /* Dot grid background pattern */
@@ -241,4 +307,167 @@ body {
   border-radius: 4px;
   overflow-x: auto;
   text-overflow: ellipsis;
+}
+
+/* ========== 暗色模式特殊样式 ========== */
+
+/* 点状网格背景 - 暗色模式下调整颜色 */
+[data-theme="dark"] .bg-dot-grid {
+  background-image: radial-gradient(circle, #3a3a4a 0.8px, transparent 0.8px);
+}
+
+/* 章节号装饰 - 暗色模式下降低透明度 */
+[data-theme="dark"] .chapter-num {
+  opacity: 0.15;
+}
+
+[data-theme="dark"] .chapter-num--extra {
+  opacity: 0.12;
+}
+
+/* 技能卡片 - 暗色模式下背景调整 */
+[data-theme="dark"] .skills-promo__card {
+  background: var(--color-paper-warm);
+}
+
+[data-theme="dark"] .skills-promo__card:hover {
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.15);
+}
+
+/* 技能卡片命令 - 暗色模式下背景调整 */
+[data-theme="dark"] .skills-promo__card-cmd {
+  background: rgba(5, 150, 105, 0.08);
+}
+
+/* 技能卡片操作按钮 - 暗色模式下 */
+[data-theme="dark"] .skills-promo__action:hover {
+  background: rgba(5, 150, 105, 0.15);
+}
+
+/* 边框颜色覆盖 */
+[data-theme="dark"] .border-gold-pale {
+  border-color: var(--color-gold-pale) !important;
+}
+
+[data-theme="dark"] .border-gold {
+  border-color: var(--color-gold) !important;
+}
+
+[data-theme="dark"] .border-gold\/40 {
+  border-color: rgba(212, 168, 83, 0.4) !important;
+}
+
+[data-theme="dark"] .border-gold\/30 {
+  border-color: rgba(212, 168, 83, 0.3) !important;
+}
+
+[data-theme="dark"] .border-gold\/20 {
+  border-color: rgba(212, 168, 83, 0.2) !important;
+}
+
+/* 背景颜色覆盖 */
+[data-theme="dark"] .bg-paper {
+  background-color: var(--color-paper) !important;
+}
+
+[data-theme="dark"] .bg-paper-warm {
+  background-color: var(--color-paper-warm) !important;
+}
+
+[data-theme="dark"] .bg-gold-pale {
+  background-color: var(--color-gold-pale) !important;
+}
+
+[data-theme="dark"] .bg-gold {
+  background-color: var(--color-gold) !important;
+}
+
+[data-theme="dark"] .bg-gold\/40 {
+  background-color: rgba(212, 168, 83, 0.4) !important;
+}
+
+[data-theme="dark"] .bg-gold\/30 {
+  background-color: rgba(212, 168, 83, 0.3) !important;
+}
+
+[data-theme="dark"] .bg-gold\/20 {
+  background-color: rgba(212, 168, 83, 0.2) !important;
+}
+
+[data-theme="dark"] .bg-gold-pale\/40 {
+  background-color: rgba(58, 53, 40, 0.4) !important;
+}
+
+[data-theme="dark"] .bg-gold-pale\/30 {
+  background-color: rgba(58, 53, 40, 0.3) !important;
+}
+
+[data-theme="dark"] .bg-gold-pale\/50 {
+  background-color: rgba(58, 53, 40, 0.5) !important;
+}
+
+[data-theme="dark"] .bg-gold-pale\/60 {
+  background-color: rgba(58, 53, 40, 0.6) !important;
+}
+
+/* 带 opacity 的文字颜色覆盖 - 暗色模式下提高亮度 */
+[data-theme="dark"] .text-ink-muted\/30 {
+  color: rgba(184, 180, 168, 0.7) !important;
+}
+
+[data-theme="dark"] .text-ink-muted\/35 {
+  color: rgba(184, 180, 168, 0.75) !important;
+}
+
+[data-theme="dark"] .text-ink-muted\/40 {
+  color: rgba(184, 180, 168, 0.8) !important;
+}
+
+[data-theme="dark"] .text-ink-muted\/50 {
+  color: rgba(184, 180, 168, 0.85) !important;
+}
+
+[data-theme="dark"] .text-ink-muted\/60 {
+  color: rgba(184, 180, 168, 0.9) !important;
+}
+
+[data-theme="dark"] .text-ink-muted\/65 {
+  color: rgba(184, 180, 168, 0.92) !important;
+}
+
+[data-theme="dark"] .text-ink-muted\/70 {
+  color: rgba(184, 180, 168, 0.95) !important;
+}
+
+[data-theme="dark"] .text-ink-muted\/75 {
+  color: rgba(184, 180, 168, 0.97) !important;
+}
+
+[data-theme="dark"] .text-ink-muted\/80 {
+  color: rgba(184, 180, 168, 1) !important;
+}
+
+[data-theme="dark"] .text-ink\/85 {
+  color: rgba(245, 242, 237, 1) !important;
+}
+
+[data-theme="dark"] .text-ink\/75 {
+  color: rgba(245, 242, 237, 0.95) !important;
+}
+
+[data-theme="dark"] .text-gold\/30 {
+  color: rgba(212, 168, 83, 0.5) !important;
+}
+
+[data-theme="dark"] .text-gold\/40 {
+  color: rgba(212, 168, 83, 0.6) !important;
+}
+
+[data-theme="dark"] .text-gold\/80 {
+  color: rgba(212, 168, 83, 1) !important;
+}
+
+/* 暗色模式：LangChain Community 图片反转 */
+[data-theme="dark"] img[src*="langchain-community"] {
+  filter: invert(0.85) hue-rotate(180deg);
 }

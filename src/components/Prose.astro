@@ -14,7 +14,7 @@
   prose-img:rounded-xl prose-img:shadow-md prose-img:my-8
   prose-a:text-accent prose-a:no-underline prose-a:font-medium hover:prose-a:underline
   max-w-none
-  [&_pre]:rounded-xl [&_pre]:shadow-md [&_pre]:bg-[#1a1a2e] [&_pre]:border [&_pre]:border-ink-light/20
+  [&_pre]:rounded-xl [&_pre]:shadow-md [&_pre]:bg-[#1a1a2e] [&_pre]:border [&_pre]:border-gold-pale/60
   [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-sm [&_pre_code]:text-gray-200 [&_pre_code]:leading-relaxed [&_pre_code]:before:content-none [&_pre_code]:after:content-none
   [&_code]:before:content-none [&_code]:after:content-none [&_code]:bg-gold-pale/50 [&_code]:text-ink [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono
   [&_li]:leading-relaxed [&_li]:mb-1
@@ -22,3 +22,118 @@
 ">
   <slot />
 </div>
+
+<style>
+  /* 浅色模式：引用块背景 */
+  .prose blockquote {
+    background: rgba(245, 234, 214, 0.4);
+  }
+
+  /* 暗色模式 Prose 适配 */
+  :global([data-theme="dark"]) .prose {
+    --tw-prose-body: var(--color-ink);
+    --tw-prose-headings: var(--color-ink);
+    --tw-prose-links: var(--color-accent);
+    --tw-prose-bold: var(--color-ink);
+    --tw-prose-counters: var(--color-ink-muted);
+    --tw-prose-bullets: var(--color-ink-muted);
+    --tw-prose-quotes: var(--color-ink-muted);
+    --tw-prose-th-borders: var(--color-gold-pale);
+    --tw-prose-td-borders: var(--color-gold-pale);
+  }
+
+  /* 暗色模式：强制覆盖所有文字颜色 */
+  :global([data-theme="dark"]) .prose p,
+  :global([data-theme="dark"]) .prose li,
+  :global([data-theme="dark"]) .prose ol,
+  :global([data-theme="dark"]) .prose ul,
+  :global([data-theme="dark"]) .prose dd,
+  :global([data-theme="dark"]) .prose dt,
+  :global([data-theme="dark"]) .prose figcaption {
+    color: var(--color-ink);
+  }
+
+  /* 暗色模式：标题颜色 */
+  :global([data-theme="dark"]) .prose h1,
+  :global([data-theme="dark"]) .prose h2,
+  :global([data-theme="dark"]) .prose h3,
+  :global([data-theme="dark"]) .prose h4,
+  :global([data-theme="dark"]) .prose h5,
+  :global([data-theme="dark"]) .prose h6 {
+    color: var(--color-ink);
+  }
+
+  /* 暗色模式：加粗文字 */
+  :global([data-theme="dark"]) .prose strong {
+    color: var(--color-ink);
+  }
+
+  /* 暗色模式：引用块内的文字 */
+  :global([data-theme="dark"]) .prose blockquote p {
+    color: var(--color-ink-muted);
+  }
+
+  /* 暗色模式：代码块样式 */
+  :global([data-theme="dark"]) .prose pre {
+    background: #1a1a2a;
+    border-color: var(--color-gold-pale);
+  }
+
+  /* 暗色模式：行内代码 */
+  :global([data-theme="dark"]) .prose code:not(pre code) {
+    background: rgba(58, 53, 40, 0.8) !important;
+    color: #e8c47a !important;
+    border-radius: 4px !important;
+    padding: 0.125rem 0.375rem !important;
+    font-family: "JetBrains Mono", monospace !important;
+    font-size: 0.875rem !important;
+  }
+
+  /* 暗色模式：行内代码 - 更强的选择器 */
+  :global([data-theme="dark"]) .prose p code,
+  :global([data-theme="dark"]) .prose li code,
+  :global([data-theme="dark"]) .prose td code,
+  :global([data-theme="dark"]) .prose th code,
+  :global([data-theme="dark"]) .prose strong code,
+  :global([data-theme="dark"]) .prose em code,
+  :global([data-theme="dark"]) .prose a code {
+    background: rgba(58, 53, 40, 0.8) !important;
+    color: #e8c47a !important;
+    border-radius: 4px !important;
+    padding: 0.125rem 0.375rem !important;
+  }
+
+  /* 暗色模式：表格 */
+  :global([data-theme="dark"]) .prose table {
+    border-color: var(--color-gold-pale);
+  }
+
+  :global([data-theme="dark"]) .prose th {
+    border-color: var(--color-gold-pale);
+    color: var(--color-ink);
+  }
+
+  :global([data-theme="dark"]) .prose td {
+    border-color: var(--color-gold-pale);
+    color: var(--color-ink);
+  }
+
+  /* 暗色模式：链接 */
+  :global([data-theme="dark"]) .prose a {
+    color: var(--color-accent);
+  }
+
+  :global([data-theme="dark"]) .prose a:hover {
+    color: var(--color-accent);
+  }
+
+  /* 暗色模式：列表标记 */
+  :global([data-theme="dark"]) .prose li::marker {
+    color: var(--color-ink-muted);
+  }
+
+  /* 暗色模式：分隔线 */
+  :global([data-theme="dark"]) .prose hr {
+    border-color: var(--color-gold-pale);
+  }
+</style>

@@ -1,0 +1,172 @@
+---
+/**
+ * 主题切换按钮组件
+ * 支持：
+ * 1. 系统偏好 (prefers-color-scheme)
+ * 2. 手动切换存储 (localStorage)
+ * 3. 优先响应手动选择
+ */
+---
+
+<button
+  type="button"
+  class="theme-toggle"
+  aria-label="切换主题"
+  data-theme-toggle
+>
+  <!-- 太阳图标 (浅色模式) -->
+  <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4"/>
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+  </svg>
+  <!-- 月亮图标 (暗色模式) -->
+  <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 6px;
+    border: 1px solid var(--color-gold-pale);
+    background: transparent;
+    color: var(--color-ink-muted);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+  }
+
+  .theme-toggle:focus-visible {
+    outline: none;
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 2px var(--color-gold-pale);
+  }
+
+  .theme-toggle__icon {
+    width: 1.125rem;
+    height: 1.125rem;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  /* 浅色模式：显示月亮图标（点击切换到暗色） */
+  .theme-toggle__icon--sun {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  .theme-toggle__icon--moon {
+    opacity: 0;
+    transform: rotate(-90deg);
+    position: absolute;
+  }
+
+  /* 暗色模式：显示太阳图标（点击切换到浅色） */
+  :global([data-theme="dark"]) .theme-toggle__icon--sun {
+    opacity: 0;
+    transform: rotate(90deg);
+    position: absolute;
+  }
+
+  :global([data-theme="dark"]) .theme-toggle__icon--moon {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  /* 过渡动画 */
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-toggle__icon {
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = 'theme:preference';
+  const THEME_LIGHT = 'light';
+  const THEME_DARK = 'dark';
+
+  function getSystemTheme(): string {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? THEME_DARK : THEME_LIGHT;
+  }
+
+  function getStoredTheme(): string | null {
+    try {
+      return localStorage.getItem(STORAGE_KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  function applyTheme(theme: string) {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme') || THEME_LIGHT;
+    const next = current === THEME_LIGHT ? THEME_DARK : THEME_LIGHT;
+    applyTheme(next);
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch {}
+  }
+
+  function initTheme() {
+    // 优先级：localStorage > 系统偏好 > 默认浅色
+    const stored = getStoredTheme();
+    if (stored) {
+      applyTheme(stored);
+    } else {
+      applyTheme(getSystemTheme());
+    }
+  }
+
+  // 立即初始化（避免闪烁）
+  initTheme();
+
+  // 监听系统偏好变化（仅当用户未手动设置时）
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!getStoredTheme()) {
+      applyTheme(e.matches ? THEME_DARK : THEME_LIGHT);
+    }
+  });
+
+  // 绑定按钮点击事件
+  document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+    btn.addEventListener('click', toggleTheme);
+  });
+</script>
+
+<!-- Astro 页面切换后重新初始化 -->
+<script is:inline>
+  // 在页面加载前立即应用主题，避免闪烁
+  (function() {
+    const STORAGE_KEY = 'theme:preference';
+    const THEME_DARK = 'dark';
+    const THEME_LIGHT = 'light';
+
+    function getStoredTheme() {
+      try {
+        return localStorage.getItem(STORAGE_KEY);
+      } catch {
+        return null;
+      }
+    }
+
+    function getSystemTheme() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? THEME_DARK : THEME_LIGHT;
+    }
+
+    const stored = getStoredTheme();
+    const theme = stored || getSystemTheme();
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>

@@ -132,4 +132,17 @@ const meta = sectionMeta[title] || { num: '?', subtitle: '', accent: '#1a1a2e', 
       font-size: 1.125rem;
     }
   }
+
+  /* ========== 暗色模式适配 ========== */
+
+  /* 暗色模式下调整背景亮度 */
+  :global([data-theme="dark"]) .section-banner {
+    background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.04) 100%);
+  }
+
+  /* 暗色模式下罗马数字改用暗金 */
+  :global([data-theme="dark"]) .section-banner__num {
+    color: var(--color-gold);
+    opacity: 0.35;
+  }
 </style>
