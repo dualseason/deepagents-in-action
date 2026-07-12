@@ -388,7 +388,7 @@ agent = create_deep_agent(
 
 ## 揭开引擎盖：LangGraph 的中断机制
 
-`interrupt_on` 的底层是 LangGraph 的**中断（Interrupt）**原语。当你在工具中直接调用 `interrupt()` 函数时，可以实现更灵活的审批逻辑：
+`interrupt_on` 的底层是 LangGraph 的<strong>中断（Interrupt）</strong>原语。当你在工具中直接调用 `interrupt()` 函数时，可以实现更灵活的审批逻辑：
 
 ```python
 from langgraph.types import interrupt
