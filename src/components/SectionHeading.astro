@@ -1,21 +1,22 @@
 ---
 interface Props {
   title: string;
+  count?: number;
 }
 
-const { title } = Astro.props;
+const { title, count } = Astro.props;
 
 const sectionMeta: Record<string, { num: string; subtitle: string; accent: string; accentMuted: string; icon: string }> = {
   '认知篇': {
     num: 'I',
-    subtitle: '理解 Deep Agents 的设计哲学与技术定位',
+    subtitle: '建立 Agent 心智模型，理解 ReAct 与核心组成',
     accent: '#1a1a2e',
     accentMuted: 'rgba(26,26,46,0.06)',
     icon: '◈',
   },
   '核心篇': {
     num: 'II',
-    subtitle: '深入 Deep Agents 的核心机制与架构设计',
+    subtitle: '掌握链式调用、工具、RAG 与记忆机制',
     accent: '#b8860b',
     accentMuted: 'rgba(184,134,11,0.06)',
     icon: '◇',
@@ -29,14 +30,14 @@ const sectionMeta: Record<string, { num: string; subtitle: string; accent: strin
   },
   '进阶篇': {
     num: 'III',
-    subtitle: '生产级 Agent 的高级模式与最佳实践',
+    subtitle: '用 LangGraph 构建有状态、可协作的工作流',
     accent: '#2b6cb0',
     accentMuted: 'rgba(43,108,176,0.06)',
     icon: '◎',
   },
   '实战篇': {
     num: 'IV',
-    subtitle: '综合运用所学，构建完整的 Agent 项目',
+    subtitle: '整合多 Agent 编排，完成可运行的真实项目',
     accent: '#2d2d44',
     accentMuted: 'rgba(45,45,68,0.06)',
     icon: '▣',
@@ -51,7 +52,10 @@ const meta = sectionMeta[title] || { num: '?', subtitle: '', accent: '#1a1a2e', 
   <div class="section-banner__content">
     <div class="section-banner__num">{meta.num}</div>
     <div class="section-banner__text">
-      <h2 class="section-banner__title">{title}</h2>
+      <div class="section-banner__title-row">
+        <h2 class="section-banner__title">{title}</h2>
+        {typeof count === 'number' && <span class="section-banner__count">{count} 章</span>}
+      </div>
       <p class="section-banner__subtitle">{meta.subtitle}</p>
     </div>
   </div>
@@ -104,10 +108,23 @@ const meta = sectionMeta[title] || { num: '?', subtitle: '', accent: '#1a1a2e', 
   .section-banner__title {
     font-size: 1.375rem;
     font-weight: 800;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
     color: var(--color-ink);
     line-height: 1.2;
     margin: 0;
+  }
+
+  .section-banner__title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-banner__count {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-ink-muted);
+    opacity: 0.55;
   }
 
   .section-banner__subtitle {

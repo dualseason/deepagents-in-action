@@ -26,7 +26,7 @@ const railSections = grouped
   }))
   .filter(group => group.items.length > 0);
 
-const publishedCount = sorted.filter(ch => ch.data.published && ch.data.section !== '准备篇').length;
+const publishedCount = sorted.filter(ch => ch.data.published).length;
 
 let starCount: number | null = null;
 try {
@@ -42,39 +42,34 @@ try {
 
 <BaseLayout title="AI Agent 实战教程 — 从入门到精通">
   <Header />
-  <main class="max-w-6xl mx-auto px-6">
+  <main class="max-w-6xl mx-auto px-5 sm:px-6">
     <!-- Hero -->
-    <section class="py-24 md:py-32 text-center relative">
+    <section class="py-16 md:py-24 text-center relative overflow-hidden">
       <div class="absolute inset-0 bg-dot-grid opacity-[0.03] pointer-events-none"></div>
-      <div class="relative max-w-2xl mx-auto">
+      <div class="relative max-w-3xl mx-auto">
 
-        <div class="flex items-center justify-center gap-2.5 mb-8">
-          <span class="text-[11px] font-mono text-ink-muted/50 tracking-wider uppercase">Open Source Course</span>
+        <div class="flex items-center justify-center gap-2 mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <span class="text-[11px] font-mono text-ink-muted/60 tracking-wider uppercase">Open Source · 2026 Edition</span>
         </div>
 
-        <h1 class="text-4xl md:text-[3.75rem] font-black font-sans tracking-tight text-ink leading-[1.08] mb-5">
+        <h1 class="text-4xl md:text-[3.75rem] font-black font-sans tracking-tight text-ink leading-[1.08] mb-6">
           AI Agent <span class="text-gold">实战教程</span>
         </h1>
 
-        <p class="text-lg md:text-xl text-ink-muted leading-relaxed mb-4">
-          从零开始，系统学习 AI Agent 开发<br class="hidden sm:block" />
-          LangChain / LangGraph / 上层框架 一网打尽
+        <p class="text-base md:text-lg text-ink-muted leading-relaxed mb-8 max-w-2xl mx-auto">
+          从基础概念到生产实践，循序掌握 LangChain、LangGraph、RAG 与多 Agent 协作
         </p>
 
-        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gold-pale/40 border border-gold/20 mb-10">
-          <span class="w-1 h-1 rounded-full bg-gold inline-block"></span>
-          <span class="text-[11px] font-mono text-gold/80 tracking-wide">中转站：onekey.dualseason.com</span>
-        </div>
-
-        <div class="hero-ctas mb-12">
+        <div class="hero-ctas mb-10">
           <a href={`${import.meta.env.BASE_URL}/chapters/pre00-environment/`}
-            class="hero-cta inline-flex items-center gap-2 px-7 py-3 bg-ink text-paper text-sm font-semibold rounded-lg hover:bg-ink-light transition-colors shadow-sm">
+            class="hero-cta inline-flex items-center gap-2 px-7 py-3.5 bg-ink text-paper text-sm font-semibold rounded-md hover:bg-ink-light transition-colors shadow-sm">
             开始学习
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
           <a href="https://github.com/dualseason/deepagents-in-action" target="_blank" rel="noopener"
             aria-label="在 GitHub 上查看"
-            class="hero-cta inline-flex items-center gap-2 px-7 py-3 border border-gold/40 text-ink-muted text-sm font-medium rounded-lg hover:border-gold hover:text-gold transition-colors group">
+            class="hero-cta inline-flex items-center gap-2 px-7 py-3.5 border border-gold/40 text-ink-muted text-sm font-medium rounded-md hover:border-gold hover:text-gold transition-colors group">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
             GitHub Star
             <span
@@ -84,40 +79,58 @@ try {
           </a>
         </div>
 
-        <div class="flex items-center gap-4 justify-center">
-          <div class="h-px flex-1 bg-gradient-to-r from-transparent to-gold/20 hidden sm:block"></div>
-          <div class="inline-flex items-center gap-1.5 sm:gap-2.5 px-3 sm:px-4 py-2 rounded-full bg-paper-warm border border-gold-pale text-nowrap">
-            <span class="text-xs text-ink-muted/60 font-mono">by</span>
-            <a href="https://github.com/dualseason" target="_blank" rel="noopener"
-              class="text-xs sm:text-sm font-medium text-ink hover:text-gold transition-colors">DualSeason</a>
-            <span class="text-gold/30 text-xs">·</span>
-            <span class="text-[11px] sm:text-xs text-ink-muted/60">开源课程</span>
-            <span class="text-gold/30 text-xs">·</span>
-            <span class="text-[11px] sm:text-xs text-ink-muted/60">已发布 {publishedCount} 章</span>
-          </div>
-          <div class="h-px flex-1 bg-gradient-to-l from-transparent to-gold/20 hidden sm:block"></div>
+        <div class="course-path" aria-label="课程学习路径">
+          <div><strong>01</strong><span>Agent 基础</span></div>
+          <i aria-hidden="true"></i>
+          <div><strong>02</strong><span>LangChain</span></div>
+          <i aria-hidden="true"></i>
+          <div><strong>03</strong><span>LangGraph</span></div>
+          <i aria-hidden="true"></i>
+          <div><strong>04</strong><span>综合实战</span></div>
         </div>
 
-        <a href="https://onekey.dualseason.com" target="_blank" rel="noopener"
-          class="group mt-5 inline-flex items-center gap-2 text-ink-muted/50 hover:text-ink-muted transition-colors">
-          <span class="text-[11px] font-mono tracking-wide uppercase">API 中转站支持</span>
-          <span class="w-px h-3 bg-ink-muted/20 inline-block"></span>
-          <span class="text-xs font-medium">万博山 onekey.dualseason.com</span>
-        </a>
+        <div class="mt-7 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-ink-muted/60">
+          <a href="https://github.com/dualseason" target="_blank" rel="noopener"
+            class="font-medium text-ink-muted hover:text-gold transition-colors">DualSeason 小夏</a>
+          <span class="text-gold/30">·</span>
+          <span>已发布 {publishedCount} 章</span>
+          <span class="text-gold/30">·</span>
+          <a href="https://onekey.dualseason.com" target="_blank" rel="noopener"
+            class="hover:text-gold transition-colors">API 中转站支持</a>
+          </div>
 
       </div>
     </section>
 
     <ChapterRail sections={railSections} />
+    <section id="course-catalog" class="course-toolbar" aria-label="筛选课程">
+      <div>
+        <p class="text-xs font-mono tracking-wider text-gold mb-1">CURRICULUM</p>
+        <h2 class="text-2xl font-bold font-sans text-ink">课程目录</h2>
+      </div>
+      <label class="course-search">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
+        <span class="sr-only">搜索课程</span>
+        <input type="search" placeholder="搜索章节或关键词" data-course-search />
+        <kbd>⌘ K</kbd>
+      </label>
+    </section>
+    <p class="hidden py-16 text-center text-sm text-ink-muted" data-course-empty>没有找到匹配的课程</p>
     <div class="min-w-0">
     {grouped.map(({ section, chapters }) => {
       const hasPublished = chapters.some(ch => ch.data.published);
+      const sectionCount = chapters.filter(ch => ch.data.published).length;
       return hasPublished ? (
-        <section id={`sec-${section}`} class="mb-12 scroll-mt-24">
-          <SectionHeading title={section} />
+        <section id={`sec-${section}`} class="mb-12 scroll-mt-24" data-course-group>
+          <SectionHeading title={section} count={sectionCount} />
           <div class="grid md:grid-cols-2 gap-5">
           {chapters.map(ch => (
-            <div id={`ch-${ch.id}`} class="scroll-mt-24 grid">
+            <div
+              id={`ch-${ch.id}`}
+              class="scroll-mt-24 grid"
+              data-course-card
+              data-course-search-value={`${ch.data.title} ${ch.data.description} ${ch.data.section}`.toLowerCase()}
+            >
               <ChapterCard
                 id={ch.id}
                 title={ch.data.title}
@@ -141,6 +154,36 @@ try {
 </BaseLayout>
 
 <script>
+  const searchInput = document.querySelector('[data-course-search]');
+  const cards = Array.from(document.querySelectorAll('[data-course-card]'));
+  const groups = Array.from(document.querySelectorAll('[data-course-group]'));
+  const empty = document.querySelector('[data-course-empty]');
+
+  const filterCourses = () => {
+    if (!(searchInput instanceof HTMLInputElement)) return;
+    const query = searchInput.value.trim().toLowerCase();
+    let visibleCount = 0;
+    cards.forEach((card) => {
+      const value = card.getAttribute('data-course-search-value') || '';
+      const match = !query || value.includes(query);
+      card.classList.toggle('hidden', !match);
+      if (match) visibleCount += 1;
+    });
+    groups.forEach((group) => {
+      const hasVisibleCard = !!group.querySelector('[data-course-card]:not(.hidden)');
+      group.classList.toggle('hidden', !hasVisibleCard);
+    });
+    empty?.classList.toggle('hidden', visibleCount !== 0);
+  };
+
+  searchInput?.addEventListener('input', filterCourses);
+  document.addEventListener('keydown', (event) => {
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+      event.preventDefault();
+      if (searchInput instanceof HTMLInputElement) searchInput.focus();
+    }
+  });
+
   (async () => {
     const el = document.getElementById('gh-star-count');
     if (!el) return;
