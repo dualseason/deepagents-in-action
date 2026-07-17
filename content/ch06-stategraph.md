@@ -32,7 +32,7 @@ from langchain_core.messages import HumanMessage
 llm = ChatOpenAI(
     model="deepseek-v4-flash",
     api_key="sk-你的密钥",
-    base_url="https://onekey.dualseason.com/v1"
+    base_url="https://dualseason.com/v1"
 )
 
 # 1. 定义状态

@@ -27,7 +27,7 @@ from langchain_openai import ChatOpenAI
 llm = ChatOpenAI(
     model="deepseek-v4-flash",
     api_key="sk-你的密钥",
-    base_url="https://onekey.dualseason.com/v1"
+    base_url="https://dualseason.com/v1"
 )
 
 # 1. 专家 Agent

@@ -13,7 +13,7 @@
 本课程所有示例通过中转站调用 LLM API：
 
 ```
-中转站地址：https://onekey.dualseason.com
+双季中转站地址：https://dualseason.com
 ```
 
 中转站兼容 OpenAI SDK 格式，只需修改 `base_url`：
@@ -23,7 +23,7 @@ from openai import OpenAI
 
 client = OpenAI(
     api_key="sk-你的密钥",
-    base_url="https://onekey.dualseason.com/v1"
+    base_url="https://dualseason.com/v1"
 )
 ```
 
@@ -35,7 +35,7 @@ from langchain_openai import ChatOpenAI
 llm = ChatOpenAI(
     model="deepseek-v4-flash",
     api_key="sk-你的密钥",
-    base_url="https://onekey.dualseason.com/v1"
+    base_url="https://dualseason.com/v1"
 )
 ```
 
@@ -59,7 +59,7 @@ pip install langchain langchain-community langchain-openai langgraph crewai open
 
 ```bash
 OPENAI_API_KEY=sk-你的密钥
-OPENAI_API_BASE=https://onekey.dualseason.com/v1
+OPENAI_API_BASE=https://dualseason.com/v1
 OPENAI_MODEL_NAME=deepseek-v4-flash
 ```
 

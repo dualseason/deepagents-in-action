@@ -47,7 +47,7 @@ import json
 
 client = OpenAI(
     api_key="sk-你的密钥",
-    base_url="https://onekey.dualseason.com/v1"
+    base_url="https://dualseason.com/v1"
 )
 
 # 定义工具

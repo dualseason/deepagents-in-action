@@ -9,7 +9,7 @@
 
 <br/>
 
-所有示例通过 **[万博山中转站](https://onekey.dualseason.com)** 调用 LLM，默认模型 **deepseek-v4-flash**。
+所有示例通过 **[双季中转站](https://dualseason.com)** 调用 LLM，默认模型 **deepseek-v4-flash**。
 
 </div>
 
@@ -54,7 +54,7 @@
 
 ## 技术栈
 
-- **LLM 中转站**：[万博山](https://onekey.dualseason.com)（兼容 OpenAI API）
+- **LLM 中转站**：[双季中转站](https://dualseason.com)（兼容 OpenAI API）
 - **默认模型**：deepseek-v4-flash
 - **框架**：LangChain / LangGraph / CrewAI
 - **前端**：[Astro 6](https://astro.build/) + [Tailwind CSS 4](https://tailwindcss.com/)

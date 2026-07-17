@@ -28,7 +28,7 @@ from langchain_chroma import Chroma
 embeddings = OpenAIEmbeddings(
     model="text-embedding-3-small",
     api_key="sk-你的密钥",
-    base_url="https://onekey.dualseason.com/v1"
+    base_url="https://dualseason.com/v1"
 )
 
 # 产品知识

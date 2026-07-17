@@ -4,7 +4,7 @@
     "chapter": 0,
     "section": "准备篇",
     "order": 1,
-    "description": "Python 环境搭建、中转站 API 配置（https://onekey.dualseason.com）、依赖安装。",
+    "description": "Python 环境搭建、双季中转站 API 配置（https://dualseason.com）、依赖安装。",
     "slides": [],
     "published": true,
     "pubDate": "2026-07-17"
